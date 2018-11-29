@@ -62,15 +62,22 @@ Maps either the left or the right side of this disjunction.
     * if `Left` maps left value with leftMapper
 * `R	get()`
     * if `Right` returns value
-    * if `Left` throws exception
+    * if `Left` throws `NoSuchElementException`
 * `L	getLeft()`
 * `R	getOrElseGet(Function<? super L,? extends R> other)`
-Gets the Right value or an alternate value, 
-if the projected Either is a Left.
+    * if `Right` returns value
+    * if `Left` returns other
 * `<X extends Throwable> R	getOrElseThrow(Function<? super L,X> exceptionFunction)`
-Gets the Right value or throws, if the projected Either is a Left.
+    * if `Right` returns value
+    * if `Left` throws exception
 * `int	hashCode()`
 * `boolean	isEmpty()`
+    `
+     @Override
+     default boolean isEmpty() {
+         return isLeft();
+     }
+    ```
 * `boolean	isLeft()`
 * `boolean	isRight()`
 * `Either.LeftProjection<L,R>	left()`
@@ -80,6 +87,8 @@ Gets the Right value or throws, if the projected Either is a Left.
     * if `Left` returns this
 * `Either<U,R>	mapLeft(Function<? super L,? extends U> leftMapper)`
 * `Either<L,R>	orElse(Either<? extends L,? extends R> other)` 
+    * if `Right` returns this
+    * if `Left` returns other
 * `Either<L,R>	orElse(Supplier<? extends Either<? extends L,? extends R>> supplier)` 
 * `void	orElseRun(Consumer<? super L> action)` - 
 if `Left` runs action
