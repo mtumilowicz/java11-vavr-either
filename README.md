@@ -47,16 +47,22 @@ transforming an `Iterable<Either<L, R>>` into a
      Function<? super R,? extends Y> rightMapper)` - 
 Maps either the left or the right side of this disjunction.
 * `boolean	equals(Object o)`
-* `Option<Either<L,R>>	filter(Predicate<? super R> predicate)` - 
-Filters this right-biased Either by testing a predicate.
-* `Either<L,U>	flatMap(Function<? super R,? extends Either<L,? extends U>> mapper)` - 
-`FlatMaps` this right-biased `Either`.
+* `Option<Either<L,R>>	filter(Predicate<? super R> predicate)`
+    * if `Left` returns `Option.of(this)`
+    * if `Right` and predicate is satisfied 
+    returns `Option.of(this)`
+    * if `Right` and predicate is not satisfied 
+    returns `Option.none()`
+* `Either<L,U>	flatMap(Function<? super R,? extends Either<L,? extends U>> mapper)`
+    * if `Right` flatMaps
+    * if `Left` returns this
 * `U	fold(Function<? super L,? extends U> leftMapper,
-    Function<? super R,? extends U> rightMapper)` - 
-Folds either the left or the right side of this disjunction.
-* `R	get()` - 
-Gets the right value if this is a 
-`Right` or throws if this is a `Left`.
+    Function<? super R,? extends U> rightMapper)`
+    * if `Right` maps right value with rightMapper
+    * if `Left` maps left value with leftMapper
+* `R	get()`
+    * if `Right` returns value
+    * if `Left` throws exception
 * `L	getLeft()`
 * `R	getOrElseGet(Function<? super L,? extends R> other)`
 Gets the Right value or an alternate value, 
@@ -67,22 +73,20 @@ Gets the Right value or throws, if the projected Either is a Left.
 * `boolean	isEmpty()`
 * `boolean	isLeft()`
 * `boolean	isRight()`
-* `Either.LeftProjection<L,R>	left()` - 
-Returns a `LeftProjection` of this `Either`.
-* `Either<L,U>	map(Function<? super R,? extends U> mapper)` - 
-Maps the value of this `Either` if it is a `Right`, 
-performs no operation if this is a `Left`.
-* `Either<U,R>	mapLeft(Function<? super L,? extends U> leftMapper)` - 
-Maps the value of this `Either` if it is a `Left`, 
-performs no operation if this is a `Right`.
+* `Either.LeftProjection<L,R>	left()`
+* `Either.RightProjection<L,R>	right()`
+* `Either<L,U>	map(Function<? super R,? extends U> mapper)`
+    * if `Right` maps right value with mapper
+    * if `Left` returns this
+* `Either<U,R>	mapLeft(Function<? super L,? extends U> leftMapper)`
 * `Either<L,R>	orElse(Either<? extends L,? extends R> other)` 
 * `Either<L,R>	orElse(Supplier<? extends Either<? extends L,? extends R>> supplier)` 
-* `void	orElseRun(Consumer<? super L> action)`
-Runs an action in the case this is a projection on a Left value.
-* `Either<L,R>	peek(Consumer<? super R> action)`
+* `void	orElseRun(Consumer<? super L> action)` - 
+if `Left` runs action
+* `Either<L,R>	peek(Consumer<? super R> action)` - 
+if `Right` runs action
 * `Either<L,R>	peekLeft(Consumer<? super L> action)` 
-* `Either.RightProjection<L,R>	right()` - 
-Returns a `RightProjection` of this `Either`.
+if `Left` runs action
 * `Either<R,L>	swap()`
-Converts a `Left` to a `Right` vice versa by wrapping the 
+Converts a `Left` to a `Right` and vice versa by wrapping the 
 value in a new type.
