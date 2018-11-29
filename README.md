@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/java11-vavr-either.svg?branch=master)](https://travis-ci.com/mtumilowicz/java11-vavr-either)
+
 # java11-vavr-either
 
 _Reference_: https://www.vavr.io/vavr-docs/#_either  
