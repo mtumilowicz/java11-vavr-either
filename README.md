@@ -41,3 +41,48 @@ transforming an `Iterable<Either<L, R>>` into a
 Reduces many `Eithers` into a single `Either` by 
 transforming an `Iterable<Either<L, R>>` into a 
 `Either<L, Seq<R>>`.
+
+## instance methods
+* `Either<X,Y>	bimap(Function<? super L,? extends X> leftMapper,
+     Function<? super R,? extends Y> rightMapper)` - 
+Maps either the left or the right side of this disjunction.
+* boolean	equals(Object o)
+* Option<Either<L,R>>	filter(Predicate<? super R> predicate) - 
+Filters this right-biased Either by testing a predicate.
+* `Either<L,U>	flatMap(Function<? super R,? extends Either<L,? extends U>> mapper)` - 
+`FlatMaps` this right-biased `Either`.
+* `U	fold(Function<? super L,? extends U> leftMapper,
+    Function<? super R,? extends U> rightMapper)` - 
+Folds either the left or the right side of this disjunction.
+* R	get() - 
+Gets the right value if this is a 
+`Right` or throws if this is a `Left`.
+* L	getLeft()
+* R	getOrElseGet(Function<? super L,? extends R> other)
+Gets the Right value or an alternate value, 
+if the projected Either is a Left.
+* <X extends Throwable> R	getOrElseThrow(Function<? super L,X> exceptionFunction)
+Gets the Right value or throws, if the projected Either is a Left.
+* int	hashCode()
+* boolean	isEmpty()
+* boolean	isLeft()
+* boolean	isRight()
+* Either.LeftProjection<L,R>	left() - 
+Returns a LeftProjection of this Either.
+* Either<L,U>	map(Function<? super R,? extends U> mapper) - 
+Maps the value of this Either if it is a Right, 
+performs no operation if this is a Left.
+* Either<U,R>	mapLeft(Function<? super L,? extends U> leftMapper) - 
+Maps the value of this Either if it is a Left, 
+performs no operation if this is a Right.
+* Either<L,R>	orElse(Either<? extends L,? extends R> other) 
+* Either<L,R>	orElse(Supplier<? extends Either<? extends L,? extends R>> supplier) 
+* void	orElseRun(Consumer<? super L> action)
+Runs an action in the case this is a projection on a Left value.
+* Either<L,R>	peek(Consumer<? super R> action)
+* Either<L,R>	peekLeft(Consumer<? super L> action) 
+* Either.RightProjection<L,R>	right() - 
+Returns a RightProjection of this Either.
+* Either<R,L>	swap()
+Converts a Left to a Right vice versa by wrapping the 
+value in a new type.
