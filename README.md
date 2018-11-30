@@ -90,7 +90,7 @@ Maps either the left or the right side of this disjunction.
 * `Either<U,R>	mapLeft(Function<? super L,? extends U> leftMapper)`
 * `Either<L,R>	orElse(Either<? extends L,? extends R> other)` 
     * if `Right` returns this
-    * if `Left` returns other
+    * if `Left` returns left mapped by `other`
 * `Either<L,R>	orElse(Supplier<? extends Either<? extends L,? extends R>> supplier)` 
 * `void	orElseRun(Consumer<? super L> action)` - 
 if `Left` runs action
