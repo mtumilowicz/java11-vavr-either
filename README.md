@@ -15,6 +15,8 @@ given `Either` is a `Left` and projected to a `Right`, the
 a `Left` is projected to a `Left` or a `Right` is projected 
 to a `Right`, the operations have an effect.
 
+**Note that** `Try<T> `is isomorphic to `Either<Throwable, T>`.
+
 **By convention the success case is `Right` and the 
 failure is `Left`.**
 
